@@ -1,0 +1,78 @@
+*
+	{
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
+body
+	{
+		font-size: 25px;
+		font-family: 'Roboto Mono', monospace;
+	}
+
+article
+	{
+		width: 100%;
+		max-width: 600px;
+		height: 100vh;
+		margin: 0 auto;
+		background-color: grey; 
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		grid-template-rows: repeat(5, 1fr);
+	}
+
+section.operacion
+	{
+		grid-column: span 4;
+		background-color: rgba(0,255,0,0.3);
+		display: grid;
+		grid-template-rows: 1fr 2fr;
+		padding: 0 20px;
+		margin: 10px 10px 0 10px;
+		border-radius:10px; 
+	}
+
+.num, .acc
+	{
+		display: grid;
+		align-items: center;
+		justify-content: center;
+	}
+
+h3
+	{
+		font-size: 1.5em;
+		text-align: center;
+		border-radius: 10px;
+		padding: 20px;
+		margin: 10px;
+		background-color: rgba(255,255,255,0.4);
+		border-bottom: 4px solid rgba(255,255,255,0.5);
+	}
+
+h3:hover
+	{
+		background-color: rgba(255,255,255,0.2);
+	}
+
+h3:active
+	{
+		border-bottom: 0px solid rgba(255,255,255,0);
+	}
+
+h2
+	{
+		text-align: right;
+	}
+
+h2.calculo
+	{
+		font-size: 0.75em;
+	}
+
+h2.resultado
+	{
+		font-size: 2em;
+	}
