@@ -21,22 +21,27 @@
 			<h2 class="calculo"></h2>
 			<h2 class="resultado"></h2>
 		</section>
-		<h3 class="acc" onclick="escribirOperacion('+')">+</h3>
-		<h3 class="acc" onclick="escribirOperacion('-')">-</h3>
-		<h3 class="acc" onclick="escribirOperacion('x')">x</h3>
-		<h3 class="acc" onclick="escribirOperacion('/')">/</h3>
-		<h3 class="num" onclick="escribirNumero('1')">1</h3>
-		<h3 class="num" onclick="escribirNumero('2')">2</h3>
-		<h3 class="num" onclick="escribirNumero('3')">3</h3>
-		<h3 class="acc" onclick="resolver()">=</h3>
-		<h3 class="num" onclick="escribirNumero('4')">4</h3>
-		<h3 class="num" onclick="escribirNumero('5')">5</h3>
-		<h3 class="num" onclick="escribirNumero('6')">6</h3>
-		<h3 class="acc" onclick="borrar()">C</h3>
-		<h3 class="num" onclick="escribirNumero('7')">7</h3>
-		<h3 class="num" onclick="escribirNumero('8')">8</h3>
-		<h3 class="num" onclick="escribirNumero('9')">9</h3>
-		<h3 class="num" onclick="escribirNumero('0')">0</h3>
+			<article class="numeros">
+				<h3 class="num" onclick="escribirNumero('7')">7</h3>
+				<h3 class="num" onclick="escribirNumero('8')">8</h3>
+				<h3 class="num" onclick="escribirNumero('9')">9</h3>
+				<h3 class="num" onclick="escribirNumero('4')">4</h3>
+				<h3 class="num" onclick="escribirNumero('5')">5</h3>
+				<h3 class="num" onclick="escribirNumero('6')">6</h3>
+				<h3 class="num" onclick="escribirNumero('1')">1</h3>
+				<h3 class="num" onclick="escribirNumero('2')">2</h3>
+				<h3 class="num" onclick="escribirNumero('3')">3</h3>
+				<h3 class="acc" onclick="escribirNumero('.')">.</h3>
+				<h3 class="num" onclick="escribirNumero('0')">0</h3>
+				<h3 class="acc" onclick="resolver()">=</h3>
+			</article>
+			<article class="calculos">
+				<h3 class="acc" onclick="borrarTodo()">C</h3>
+				<h3 class="acc" onclick="escribirOperacion('/')">/</h3>
+				<h3 class="acc" onclick="escribirOperacion('+')">+</h3>
+				<h3 class="acc" onclick="escribirOperacion('-')">-</h3>
+				<h3 class="acc" onclick="escribirOperacion('x')">x</h3>
+			</article>		
 	</article>
 	<script type="text/javascript" src="js/calculadora.js"></script>
 </body>
