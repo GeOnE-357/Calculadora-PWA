@@ -46,14 +46,80 @@ const resolver=()=>{
 	};*/
 
 const resolver=()=>{
-		
+
 		if(ultimo==false)
 			{
 				calculo_pantalla.innerHTML=borrarUltimoCaracter(calculo_pantalla.innerHTML);
-				calculo_vector=calculo_vector.split(" ")
+				calculo_vector=calculo_vector.split(" ");
 				calculo_vector.pop();
 				calculo_vector.pop();
 				ultimo=true;
+			}
+		else
+			{
+				calculo_vector=calculo_vector.split(" ");
+				let sumas=[];
+				let restas=[];
+				let multis=[];
+				let divis=[];
+				let total;
+				
+				//Busca todas las multiplicaciones que hay en el vector de calculos.
+				for(let num in calculo_vector)
+					{
+						if(calculo_vector[num]=="x")
+							{
+								multis.push(Number(num));
+							}	
+					}
+
+				//Los invierte para poder empezar a solucionar desde el ultimo, para poder borrarlos y que no se repitan operaciones en vano.
+				multis=multis.reverse()
+
+				if(multis.length>0)
+					{
+						for(let op in multis)
+							{
+								calculo_vector[multis[op]-1]=Number(calculo_vector[multis[op]-1])*Number(calculo_vector[multis[op]+1]);
+								calculo_vector.pop();
+								calculo_vector.pop();
+							}
+
+						console.log(calculo_vector);
+					}
+
+/*
+				if(calculo_vector[num]=="+")
+							{
+								sumas.push(Number(num));
+							}
+				if(calculo_vector[num]=="-")
+					{
+						restas.push(Number(num));
+					}
+
+				if(calculo_vector[num]=="/")
+							{
+								divis.push(Number(num));
+							}
+
+				
+
+				if(divis.length>0)
+					{
+						console.log(divis);		
+					}
+
+				if(sumas.length>0)
+					{
+						console.log(sumas);		
+					}
+
+				if(restas.length>0)
+					{
+						console.log(restas);		
+					}
+*/				
 			}
 	};
 
