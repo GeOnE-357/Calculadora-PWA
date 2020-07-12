@@ -50,7 +50,36 @@ const resolver=()=>{
 				let multis=[];
 				let divis=[];
 				let total;
-				
+				//Busca todas las divisiones que hay en el vector de calculos.
+				for(let num in calculo_vector)
+					{
+						if(calculo_vector[num]=="/")
+							{
+								divis.push(Number(num));
+							}	
+					}
+
+				if(divis.length>0)
+					{
+						
+						for(let op in divis)
+							{
+								//Multiplica el numero anterior a la operacion, con el posterior de la operacion.
+								calculo_vector[divis[op]-1]=Number(calculo_vector[divis[op]-1])/Number(calculo_vector[divis[op]+1]);
+								//Elimina la posicion de la operacion y el numero posterior.
+								calculo_vector.splice(divis[op]+1,1);
+								calculo_vector.splice(divis[op],1);
+								if(divis.length>1)
+									{
+										for(let num in divis)
+											{
+												divis[num]=divis[num]-2;												
+											}
+									}
+							}
+					}
+
+
 				//Busca todas las multiplicaciones que hay en el vector de calculos.
 				for(let num in calculo_vector)
 					{
@@ -59,9 +88,6 @@ const resolver=()=>{
 								multis.push(Number(num));
 							}	
 					}
-
-				//Los invierte para poder empezar a solucionar desde el ultimo, para poder borrarlos una vez resueltos.
-				multis=multis.reverse()
 
 				if(multis.length>0)
 					{
@@ -72,59 +98,16 @@ const resolver=()=>{
 								//Elimina la posicion de la operacion y el numero posterior.
 								calculo_vector.splice(multis[op]+1,1);
 								calculo_vector.splice(multis[op],1);
+								if(multis.length>1)
+									{
+										for(let num in multis)
+											{
+												multis[num]=multis[num]-2;												
+											}
+									}
 							}
-						console.log(calculo_vector);
 					}
 
-				//Busca todas las divisiones que hay en el vector de calculos.
-				for(let num in calculo_vector)
-					{
-						if(calculo_vector[num]=="/")
-							{
-								divis.push(Number(num));
-							}	
-					}
-
-				//Los invierte para poder empezar a solucionar desde el ultimo, para poder borrarlos una vez resueltos.
-				divis=divis.reverse()
-
-				if(divis.length>0)
-					{
-						for(let op in divis)
-							{
-								//Multiplica el numero anterior a la operacion, con el posterior de la operacion.
-								calculo_vector[divis[op]-1]=Number(calculo_vector[divis[op]-1])/Number(calculo_vector[divis[op]+1]);
-								//Elimina la posicion de la operacion y el numero posterior.
-								calculo_vector.splice(divis[op]+1,1);
-								calculo_vector.splice(divis[op],1);
-							}
-						console.log(calculo_vector);
-					}
-
-				//Busca todas las sumas que hay en el vector de calculos.
-				for(let num in calculo_vector)
-					{
-						if(calculo_vector[num]=="+")
-							{
-								sumas.push(Number(num));
-							}	
-					}
-
-				//Los invierte para poder empezar a solucionar desde el ultimo, para poder borrarlos una vez resueltos.
-				sumas=sumas.reverse()
-
-				if(sumas.length>0)
-					{
-						for(let op in sumas)
-							{
-								//Multiplica el numero anterior a la operacion, con el posterior de la operacion.
-								calculo_vector[sumas[op]-1]=Number(calculo_vector[sumas[op]-1])+Number(calculo_vector[sumas[op]+1]);
-								//Elimina la posicion de la operacion y el numero posterior.
-								calculo_vector.splice(sumas[op]+1,1);
-								calculo_vector.splice(sumas[op],1);
-							}
-						console.log(calculo_vector);
-					}
 
 				//Busca todas las restas que hay en el vector de calculos.
 				for(let num in calculo_vector)
@@ -135,10 +118,7 @@ const resolver=()=>{
 							}	
 					}
 
-				//Los invierte para poder empezar a solucionar desde el ultimo, para poder borrarlos una vez resueltos.
-				restas=restas.reverse()
-
-				if(sumas.length>0)
+				if(restas.length>0)
 					{
 						for(let op in restas)
 							{
@@ -147,8 +127,43 @@ const resolver=()=>{
 								//Elimina la posicion de la operacion y el numero posterior.
 								calculo_vector.splice(restas[op]+1,1);
 								calculo_vector.splice(restas[op],1);
+								if(restas.length>1)
+									{
+										for(let num in restas)
+											{
+												restas[num]=restas[num]-2;												
+											}
+									}
 							}
-						console.log(calculo_vector);
+					}
+
+
+				//Busca todas las sumas que hay en el vector de calculos.
+				for(let num in calculo_vector)
+					{
+						if(calculo_vector[num]=="+")
+							{
+								sumas.push(Number(num));
+							}	
+					}
+
+				if(sumas.length>0)
+					{
+						for(let op in sumas)
+							{
+								//Multiplica el numero anterior a la operacion, con el posterior de la operacion.
+								calculo_vector[sumas[op]-1]=Number(calculo_vector[sumas[op]-1])+Number(calculo_vector[sumas[op]+1]);
+								//Elimina la posicion de la operacion y el numero posterior.
+								calculo_vector.splice(sumas[op]+1,1);
+								calculo_vector.splice(sumas[op],1);
+								if(sumas.length>1)
+									{
+										for(let num in sumas)
+											{
+												sumas[num]=sumas[num]-2;												
+											}
+									}
+							}
 					}
 			}
 

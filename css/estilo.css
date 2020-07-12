@@ -38,6 +38,7 @@ section.operacion
 article.numeros
 	{
 		grid-column: span 3;
+		height: auto;
 		grid-row: 2 / 6;
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
@@ -48,8 +49,10 @@ article.calculos
 	{
 		grid-row: 2;
 		grid-row: 2 / 6;
+		height: auto;
 		display: grid;
 		grid-template-columns: 1fr;
+		grid-template-rows: repeat(5, 1fr);
 	}
 
 .num, .acc
@@ -64,7 +67,6 @@ h3
 		font-size: 1.5em;
 		text-align: center;
 		border-radius: 10px;
-		padding: 20px;
 		margin: 10px;
 		background-color: rgba(255,255,255,0.4);
 		border-bottom: 4px solid rgba(255,255,255,0.5);
