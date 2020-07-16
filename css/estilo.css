@@ -17,10 +17,15 @@ article
 		max-width: 600px;
 		height: 100vh;
 		margin: 0 auto;
-		background-color: grey; 
 		display: grid;
+		background-color: white;
 		grid-template-columns: repeat(4, 1fr);
 		grid-template-rows: repeat(5, 1fr);
+	}
+
+article:nth-child(1)
+	{
+		box-shadow: 0 0 10px 5px rgba(0,0,0,0.2); 
 	}
 
 section.operacion
@@ -30,6 +35,7 @@ section.operacion
 		background-color: rgba(0,255,0,0.3);
 		display: grid;
 		grid-template-rows: 1fr 2fr;
+		grid-template-columns: 1fr;
 		padding: 0 20px;
 		margin: 10px 10px 0 10px;
 		border-radius:10px; 
@@ -42,7 +48,7 @@ article.numeros
 		grid-row: 2 / 6;
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		grid-template-rows: repeat(4, 1fr);
+		grid-template-rows: repeat(5, 1fr);
 	}
 
 article.calculos
@@ -68,13 +74,29 @@ h3
 		text-align: center;
 		border-radius: 10px;
 		margin: 10px;
-		background-color: rgba(255,255,255,0.4);
-		border-bottom: 4px solid rgba(255,255,255,0.5);
+		background-color: rgba(0,0,0,0.3);
+		border-bottom: 4px solid rgba(0,0,0,0.5);
+	}
+
+h3.num
+	{
+		background-color: rgba(0,0,0,0.2);
+	}
+
+h3.igu
+	{
+		background-color: rgba(0,0,255,0.5);
+		color: white;
 	}
 
 h3:hover
 	{
-		background-color: rgba(255,255,255,0.2);
+		background-color: rgba(0,0,0,0.1);
+	}
+
+h3.igu:hover
+	{
+		background-color: rgba(0,0,255,0.7);	
 	}
 
 h3:active
@@ -85,6 +107,7 @@ h3:active
 h2
 	{
 		text-align: right;
+		overflow-x: auto;
 	}
 
 h2.calculo

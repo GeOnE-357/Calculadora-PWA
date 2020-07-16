@@ -10,21 +10,48 @@ let resultado=document.getElementsByClassName("resultado")[0];
 
 let historial=[];
 
+let pasos=[];
+
 let ultimo;
 
 //funcion escribir numeros en "calculo_pantalla".
 const escribirNumero=(entrada)=>{
 	calculo_pantalla.innerHTML+=entrada;
-	calculo_vector+=entrada;
+	calculo_vector+=entrada;		
 	ultimo=true};
+
+
+const escribirParentesis=(entrada)=>
+	{
+		calculo_pantalla.innerHTML+=entrada;
+		if(entrada=="(")
+			{
+				if(calculo_vector.length==0)
+					{
+						calculo_vector+=entrada+" ";		
+					}
+				else
+					{
+						calculo_vector+=" "+entrada+" ";
+					}
+			}
+		else
+			{
+				if(calculo_vector.length>0)
+					{
+						calculo_vector+=" "+entrada;	
+					}		
+			}		
+	}
 
 //funcion escribir operaciones en "calculo_pantalla".
 const escribirOperacion=(entrada)=>{
 	if(calculo_pantalla.innerHTML!="" || resultado.innerHTML!=""){
 		if(ultimo==true)
 			{
+				calculo_pantalla.innerHTML+=entrada;
 				calculo_vector+=" "+entrada+" ";
-				calculo_pantalla.innerHTML=calculo_vector.replace(/[" "]/g, "");
+				//calculo_pantalla.innerHTML=calculo_vector.replace(/[" "]/g, "");
 				ultimo=false;		
 			}
 		}
@@ -44,132 +71,83 @@ const resolver=()=>{
 
 		if(calculo_vector.includes(" "))
 			{
-				calculo_vector=calculo_vector.split(" ");
 				let sumas=[];
 				let restas=[];
 				let multis=[];
 				let divis=[];
 				let total;
+
+				calculo_vector=calculo_vector.split(" ");
+				historial.push(calculo_vector);
+				proceso(calculo_vector);
+
 				//Busca todas las divisiones que hay en el vector de calculos.
-				for(let num in calculo_vector)
-					{
-						if(calculo_vector[num]=="/")
-							{
-								divis.push(Number(num));
-							}	
-					}
-
-				if(divis.length>0)
-					{
-						
-						for(let op in divis)
-							{
-								//Multiplica el numero anterior a la operacion, con el posterior de la operacion.
-								calculo_vector[divis[op]-1]=Number(calculo_vector[divis[op]-1])/Number(calculo_vector[divis[op]+1]);
-								//Elimina la posicion de la operacion y el numero posterior.
-								calculo_vector.splice(divis[op]+1,1);
-								calculo_vector.splice(divis[op],1);
-								if(divis.length>1)
-									{
-										for(let num in divis)
-											{
-												divis[num]=divis[num]-2;												
-											}
-									}
-							}
-					}
-
-
-				//Busca todas las multiplicaciones que hay en el vector de calculos.
-				for(let num in calculo_vector)
-					{
-						if(calculo_vector[num]=="x")
-							{
-								multis.push(Number(num));
-							}	
-					}
-
-				if(multis.length>0)
-					{
-						for(let op in multis)
-							{
-								//Multiplica el numero anterior a la operacion, con el posterior de la operacion.
-								calculo_vector[multis[op]-1]=Number(calculo_vector[multis[op]-1])*Number(calculo_vector[multis[op]+1]);
-								//Elimina la posicion de la operacion y el numero posterior.
-								calculo_vector.splice(multis[op]+1,1);
-								calculo_vector.splice(multis[op],1);
-								if(multis.length>1)
-									{
-										for(let num in multis)
-											{
-												multis[num]=multis[num]-2;												
-											}
-									}
-							}
-					}
-
-
-				//Busca todas las restas que hay en el vector de calculos.
-				for(let num in calculo_vector)
-					{
-						if(calculo_vector[num]=="-")
-							{
-								restas.push(Number(num));
-							}	
-					}
-
-				if(restas.length>0)
-					{
-						for(let op in restas)
-							{
-								//Multiplica el numero anterior a la operacion, con el posterior de la operacion.
-								calculo_vector[restas[op]-1]=Number(calculo_vector[restas[op]-1])-Number(calculo_vector[restas[op]+1]);
-								//Elimina la posicion de la operacion y el numero posterior.
-								calculo_vector.splice(restas[op]+1,1);
-								calculo_vector.splice(restas[op],1);
-								if(restas.length>1)
-									{
-										for(let num in restas)
-											{
-												restas[num]=restas[num]-2;												
-											}
-									}
-							}
-					}
-
-
-				//Busca todas las sumas que hay en el vector de calculos.
-				for(let num in calculo_vector)
-					{
-						if(calculo_vector[num]=="+")
-							{
-								sumas.push(Number(num));
-							}	
-					}
-
-				if(sumas.length>0)
-					{
-						for(let op in sumas)
-							{
-								//Multiplica el numero anterior a la operacion, con el posterior de la operacion.
-								calculo_vector[sumas[op]-1]=Number(calculo_vector[sumas[op]-1])+Number(calculo_vector[sumas[op]+1]);
-								//Elimina la posicion de la operacion y el numero posterior.
-								calculo_vector.splice(sumas[op]+1,1);
-								calculo_vector.splice(sumas[op],1);
-								if(sumas.length>1)
-									{
-										for(let num in sumas)
-											{
-												sumas[num]=sumas[num]-2;												
-											}
-									}
-							}
-					}
+				calculo_vector=resolverOperacionesBasicas(calculo_vector,"/");
+				calculo_vector=resolverOperacionesBasicas(calculo_vector,"x");
+				calculo_vector=resolverOperacionesBasicas(calculo_vector,"-");
+				calculo_vector=resolverOperacionesBasicas(calculo_vector,"+");
 			}
 
 		resultado.innerHTML=calculo_vector;
 		calculo_vector="";	
 	};
+
+
+const proceso=(vector)=>
+	{
+		let texto=(String(vector));
+		texto=texto.replace(/[","]/g, "");
+		pasos.push(texto);	
+	}
+
+const resolverOperacionesBasicas = (vector, operacion) =>
+	{
+		let cuentas=[];
+		for(let num in vector)
+				{
+					if(vector[num]==operacion)
+						{
+							cuentas.push(Number(num));
+						}	
+				}
+
+			if(cuentas.length>0)
+				{
+					for(let op in cuentas)
+						{
+							//Multiplica el numero anterior a la operacion, con el posterior de la operacion.
+							if(operacion=="/")
+								{
+									vector[cuentas[op]-1]=Number(vector[cuentas[op]-1])/Number(vector[cuentas[op]+1]);		
+								}
+							if(operacion=="x")
+								{
+									vector[cuentas[op]-1]=Number(vector[cuentas[op]-1])*Number(vector[cuentas[op]+1]);		
+								}
+							if(operacion=="-")
+								{
+									vector[cuentas[op]-1]=Number(vector[cuentas[op]-1])-Number(vector[cuentas[op]+1]);		
+								}
+							if(operacion=="+")
+								{
+									vector[cuentas[op]-1]=Number(vector[cuentas[op]-1])+Number(vector[cuentas[op]+1]);		
+								}
+							//Elimina la posicion de la operacion y el numero posterior.
+							vector.splice(cuentas[op]+1,1);
+							vector.splice(cuentas[op],1);
+							if(cuentas.length>1)
+								{
+									for(let num in cuentas)
+										{
+											cuentas[num]=cuentas[num]-2;												
+										}
+								}
+						}
+					proceso(vector);
+				}
+			console.log(vector);
+			return vector;
+	}
 
 
 
@@ -183,6 +161,5 @@ const borrarTodo=()=>{
 	calculo_vector="";
 	resultado.innerHTML="";
 	};
-
 
 const borrarUltimoCaracter=(texto)=>{return texto.substring(0, texto.length - 1);};
